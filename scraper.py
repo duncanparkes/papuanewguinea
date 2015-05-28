@@ -10,7 +10,7 @@ root = lxml.html.fromstring(resp.text)
 region_lis = root.xpath("//li[contains(., 'Members')]")[0].find('ul').findall('li')
 
 legislatures_data = [
-    {'id': 2012, 'name': '2012-1017', 'start_date': '2012', 'end_date': 2017},
+    {'id': 2012, 'name': '2012-2017', 'start_date': 2012, 'end_date': 2017},
     ]
 
 data = []
