@@ -3,6 +3,7 @@ from urlparse import urljoin
 
 import requests
 import lxml.html
+from slugify import slugify
 
 source_url = 'http://www.parliament.gov.pg/'
 resp = requests.get(source_url)
@@ -95,6 +96,9 @@ for region_li in region_lis:
 
             if member['name'] == 'Position is Vacant':
                 continue
+
+            name = re.match(r'Hon\.?\s+([^,]*)(?:,\s+MP)?.*', member['name']).group(1).strip()
+            member['id'] = slugify(name)
 
             member['image'] = urljoin(details_url, member_root.cssselect('.section-body img')[0].get('src'))
             party_string = member_root.cssselect('.section-body')[0].xpath("//p[contains(., 'Party')]")[0].find('br').tail.strip()
