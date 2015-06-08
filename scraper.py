@@ -49,6 +49,10 @@ for region_li in region_lis:
             member_root = lxml.html.fromstring(member_resp.text)
 
             member['name'] = member_root.cssselect('.section-head h1')[0].text_content().strip()
+
+            if member['name'] == 'Position is Vacant':
+                continue
+
             member['image'] = urljoin(details_url, member_root.cssselect('.section-body img')[0].get('src'))
             member['party'] = member_root.cssselect('.section-body')[0].xpath("//p[contains(., 'Party')]")[0].find('br').tail.strip()
 
