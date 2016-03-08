@@ -100,7 +100,8 @@ for region_li in region_lis:
             if member['name'] == 'Position is Vacant':
                 continue
 
-            name = re.match(r'Hon\.?\s+([^,]*)(?:,\s+MP)?.*', member['name']).group(1).strip()
+            name = re.match(r'Hon\.?\s*([^,]*)(?:,\s+MP)?.*', member['name']).group(1).strip()
+
             member['id'] = slugify(name)
 
             member['image'] = urljoin(details_url, member_root.cssselect('.section-body img')[0].get('src'))
