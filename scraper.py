@@ -1,4 +1,5 @@
 import re
+import time
 from urlparse import urljoin
 
 import requests
@@ -95,7 +96,15 @@ for region_li in region_lis:
                 member['district'] = district
                 member['area'] = district
 
-            member_resp = requests.get(details_url)
+
+            for x in range(5):
+                try:
+                    member_resp = requests.get(details_url)
+                    break
+                except requests.exceptions.ConnectionError:
+                    print "Connection error waiting 5 seconds: {}".format(details_url)
+                    time.sleep(5)
+
             member_root = lxml.html.fromstring(member_resp.text)
 
             member['name'] = member_root.cssselect('.section-head h1')[0].text_content().strip()
