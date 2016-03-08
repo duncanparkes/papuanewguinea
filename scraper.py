@@ -38,6 +38,9 @@ def party_name_and_id_from_string(party_string):
         elif party_string == 'Independent':
             party = party_string
             party_id = 'I'
+        elif party_string == 'PANGU Pati':
+            party = 'Pangu'
+            party_id = 'P'
         else:
             import pdb;pdb.set_trace()
 
